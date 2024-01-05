@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using System.Globalization;
 
 namespace OpenWeatherAPI
@@ -19,7 +19,7 @@ namespace OpenWeatherAPI
 				throw new System.ArgumentNullException(nameof(weatherData));
 
 
-			ID = int.Parse(weatherData.SelectToken("id").ToString(), CultureInfo.InvariantCulture);
+			ID = weatherData.SelectToken("id").Value<int>();
 			Main = weatherData.SelectToken("main").ToString();
 			Description = weatherData.SelectToken("description").ToString();
 			Icon = weatherData.SelectToken("icon").ToString();

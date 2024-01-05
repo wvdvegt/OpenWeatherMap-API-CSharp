@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -34,7 +35,7 @@ namespace OpenWeatherAPI
 				Base = jsonData.SelectToken("base").ToString();
 				Main = new Main(jsonData.SelectToken("main"));
 				if (jsonData.SelectToken("visibility") != null)
-					Visibility = double.Parse(jsonData.SelectToken("visibility").ToString(), CultureInfo.InvariantCulture);
+					Visibility = jsonData.SelectToken("visibility").Value<Double>();
 				Wind = new Wind(jsonData.SelectToken("wind"));
 				if (jsonData.SelectToken("rain") != null)
 					Rain = new Rain(jsonData.SelectToken("rain"));
@@ -42,10 +43,10 @@ namespace OpenWeatherAPI
 					Snow = new Snow(jsonData.SelectToken("snow"));
 				Clouds = new Clouds(jsonData.SelectToken("clouds"));
 				Sys = new Sys(jsonData.SelectToken("sys"));
-				ID = int.Parse(jsonData.SelectToken("id").ToString(), CultureInfo.InvariantCulture);
+				ID = jsonData.SelectToken("id").Value<int>();
 				Name = jsonData.SelectToken("name").ToString();
-				Cod = int.Parse(jsonData.SelectToken("cod").ToString(), CultureInfo.InvariantCulture);
-				Timezone = int.Parse(jsonData.SelectToken("timezone").ToString(), CultureInfo.InvariantCulture);
+				Cod = jsonData.SelectToken("cod").Value<int>();
+				Timezone = jsonData.SelectToken("timezone").Value<int>();
 			}
 			else
 			{

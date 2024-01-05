@@ -1,15 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <RootNamespace>OpenWeatherAPI_Example</RootNamespace>
+    <UserSecretsId>5ab5a5aa-1dd5-4b2e-83e3-eb84bda5fb30</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="OpenWeatherAPI">
-      <HintPath>..\OpenWeatherAPI\bin\Debug\OpenWeatherAPI.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\OpenWeatherAPI\OpenWeatherAPI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
   </ItemGroup>
 
 </Project>

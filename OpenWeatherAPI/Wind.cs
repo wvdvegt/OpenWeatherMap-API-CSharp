@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Linq;
+using System;
 using System.Globalization;
 
 namespace OpenWeatherAPI
@@ -42,12 +43,12 @@ namespace OpenWeatherAPI
 				throw new System.ArgumentNullException(nameof(windData));
 
 
-			SpeedMetersPerSecond = double.Parse(windData.SelectToken("speed").ToString(), CultureInfo.InvariantCulture);
+			SpeedMetersPerSecond = windData.SelectToken("speed").Value<Double>();
 			SpeedFeetPerSecond = SpeedMetersPerSecond * 3.28084;
-			Degree = double.Parse(windData.SelectToken("deg").ToString(), CultureInfo.InvariantCulture);
+			Degree = windData.SelectToken("deg").Value<Double>();
 			Direction = assignDirection(Degree);
 			if (windData.SelectToken("gust") != null)
-				Gust = double.Parse(windData.SelectToken("gust").ToString(), CultureInfo.InvariantCulture);
+				Gust =windData.SelectToken("gust").Value<Double>();
 		}
 
 		public static string DirectionEnumToString(DirectionEnum dir)

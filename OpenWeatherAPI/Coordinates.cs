@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Linq;
+using System;
 using System.Globalization;
 
 namespace OpenWeatherAPI
@@ -14,8 +15,8 @@ namespace OpenWeatherAPI
 			if (coordinateData is null)
 				throw new System.ArgumentNullException(nameof(coordinateData));
 
-			Longitude = double.Parse(coordinateData.SelectToken("lon").ToString(), CultureInfo.CurrentCulture);
-			Latitude = double.Parse(coordinateData.SelectToken("lat").ToString(), CultureInfo.CurrentCulture);
+			Longitude = coordinateData.SelectToken("lon").Value<Double>();
+			Latitude = coordinateData.SelectToken("lat").Value<Double>();
 		}
 	}
 }

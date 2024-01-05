@@ -25,14 +25,14 @@ namespace OpenWeatherAPI
 
 
 			if (sysData.SelectToken("type") != null)
-				Type = int.Parse(sysData.SelectToken("type").ToString(), CultureInfo.InvariantCulture);
+				Type = sysData.SelectToken("type").Value<int>();
 			if (sysData.SelectToken("id") != null)
-				ID = int.Parse(sysData.SelectToken("id").ToString(), CultureInfo.InvariantCulture);
+				ID = sysData.SelectToken("id").Value<int>();
 			if (sysData.SelectToken("message") != null)
-				Message = double.Parse(sysData.SelectToken("message").ToString(), CultureInfo.InvariantCulture);
+				Message =sysData.SelectToken("message").Value<double>();
 			Country = sysData.SelectToken("country").ToString();
-			Sunrise = ConvertUnixToDateTime(double.Parse(sysData.SelectToken("sunrise").ToString(), CultureInfo.InvariantCulture));
-			Sunset = ConvertUnixToDateTime(double.Parse(sysData.SelectToken("sunset").ToString(), CultureInfo.InvariantCulture));
+			Sunrise = ConvertUnixToDateTime(sysData.SelectToken("sunrise").Value<double>());
+			Sunset = ConvertUnixToDateTime(sysData.SelectToken("sunset").Value<double>());
 		}
 
 		private static DateTime ConvertUnixToDateTime(double unixTime)

@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+using System;
+using System.Globalization;
 using Newtonsoft.Json.Linq;
 
 namespace OpenWeatherAPI
@@ -12,8 +13,8 @@ namespace OpenWeatherAPI
 		public GeoResponse(string jsonResponse)
 		{
 			var jsonData = JArray.Parse(jsonResponse);
-			Lat = double.Parse(jsonData[0].SelectToken("lat").ToString(), CultureInfo.CurrentCulture);
-			Lon = double.Parse(jsonData[0].SelectToken("lon").ToString(), CultureInfo.CurrentCulture);
+			Lat = jsonData[0].SelectToken("lat").Value<Double>();
+			Lon = jsonData[0].SelectToken("lon").Value<Double>();
 			ValidRequest = true;
 		}
 	}

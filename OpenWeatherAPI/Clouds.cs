@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Globalization;
 
 namespace OpenWeatherAPI
@@ -11,7 +12,7 @@ namespace OpenWeatherAPI
 				throw new System.ArgumentNullException(nameof(cloudsData));
 
 
-			All = double.Parse(cloudsData.SelectToken("all").ToString(), CultureInfo.InvariantCulture);
+			All = cloudsData.SelectToken("all").Value<Double>();
 		}
 
 		public double All { get; }
