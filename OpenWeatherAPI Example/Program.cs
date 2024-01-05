@@ -25,9 +25,9 @@ namespace OpenWeatherAPI_Example
 			Console.WriteLine();
 
 			Console.WriteLine($"Fetching weather data for '{city}'");
-			var results = await client.QueryAsync(city);
+			QueryResponse query = await client.QueryAsync(city);
 
-			Console.WriteLine($"The temperature in {city} is {results.Main.Temperature.CelsiusCurrent} °C. There is {results.Wind.SpeedMetersPerSecond} m/s wind in the {results.Wind.Direction} direction.");
+			Console.WriteLine($"The temperature in {query.Name} ({query.Sys.Country}) is currently {query.Main.Temperature.CelsiusCurrent} °C. There is {query.Wind.SpeedMetersPerSecond} m/s wind in the {query.Wind.Direction} direction.");
 
 			Console.ReadLine();
 		}
