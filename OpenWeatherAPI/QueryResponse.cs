@@ -1,7 +1,10 @@
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Xml.Linq;
 
 namespace OpenWeatherAPI
 {
@@ -25,7 +28,15 @@ namespace OpenWeatherAPI
 
 		public QueryResponse(string jsonResponse)
 		{
+			//! Using NewtonSoft.Json.
+			FullWeatherData welcome = JsonConvert.DeserializeObject<FullWeatherData>(jsonResponse);
+
+			//! Using System.Text.Json.
+			FullWeatherData weatherForecast = System.Text.Json.JsonSerializer.Deserialize<FullWeatherData>(jsonResponse);
+
+			//! Manual Parsong using NewtonSoft.Json.
 			var jsonData = JObject.Parse(jsonResponse);
+
 			if (jsonData.SelectToken("cod").ToString() == "200")
 			{
 				ValidRequest = true;

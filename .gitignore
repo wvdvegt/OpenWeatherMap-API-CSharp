@@ -235,3 +235,5 @@ $RECYCLE.BIN/
 *.lnk
 *.ncrunchsolution
 OpenWeatherAPI Example/jsonexamples.txt
+/OpenWeatherAPI/geo.json
+/OpenWeatherAPI/weather.json
