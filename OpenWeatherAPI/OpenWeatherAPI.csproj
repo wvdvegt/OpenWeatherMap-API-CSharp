@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Compile Remove="FullGeoData.cs" />
+    <Compile Remove="TemperatureObj.cs" />
   </ItemGroup>
 
   <ItemGroup>
