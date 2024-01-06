@@ -1,19 +1,37 @@
-using Newtonsoft.Json.Linq;
-using System.Globalization;
 
 namespace OpenWeatherAPI
 {
-	public class Rain
-	{
-		public Rain(JToken rainData)
-		{
-			if (rainData is null)
-				throw new System.ArgumentNullException(nameof(rainData));
+    using System.Text.Json.Serialization;
 
-			if (rainData.SelectToken("3h") != null)
-				H3 = rainData.SelectToken("3h").Value<double>();
-		}
+    /// <summary>
+    /// A rain.
+    /// </summary>
+    public partial class Rain
+    {
+        #region Properties
 
-		public double H3 { get; }
-	}
+        /// <summary>
+        /// Gets or sets the h 1.
+        /// </summary>
+        ///
+        /// <value>
+        /// The h 1.
+        /// </value>
+        [JsonPropertyName("1h")]
+        [Units("Rain Volume", "mm")]
+        public double H1 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the h 3.
+        /// </summary>
+        ///
+        /// <value>
+        /// The h 3.
+        /// </value>
+        [JsonPropertyName("3h")]
+        [Units("Rain Volume", "mm")]
+        public double H3 { get; set; }
+
+        #endregion Properties
+    }
 }

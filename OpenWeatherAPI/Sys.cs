@@ -1,44 +1,67 @@
-using Newtonsoft.Json.Linq;
-using System;
-using System.Globalization;
-
 namespace OpenWeatherAPI
 {
-	public class Sys
-	{
-		public int Type { get; }
+    using System;
+    using System.Text.Json.Serialization;
 
-		public int ID { get; }
+    /// <summary>
+    /// Sys.
+    /// </summary>
+    public class Sys
+    {
+        #region Properties
 
-		public double Message { get; }
+        /// <summary>
+        /// Gets or sets the country.
+        /// </summary>
+        ///
+        /// <value>
+        /// The country.
+        /// </value>
+        [JsonPropertyName("country")]
+        public string Country { get; set; }
 
-		public string Country { get; }
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        ///
+        /// <value>
+        /// The identifier.
+        /// </value>
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
 
-		public DateTime Sunrise { get; }
+        /// <summary>
+        /// Gets or sets the Date/Time of the sunrise.
+        /// </summary>
+        ///
+        /// <value>
+        /// The sunrise.
+        /// </value>
+        [JsonPropertyName("sunrise")]
+        [JsonConverter(typeof(UnixDateToDateTimeConverter))]
+        public DateTime Sunrise { get; set; }
 
-		public DateTime Sunset { get; }
+        /// <summary>
+        /// Gets or sets the Date/Time of the sunset.
+        /// </summary>
+        ///
+        /// <value>
+        /// The sunset.
+        /// </value>
+        [JsonPropertyName("sunset")]
+        [JsonConverter(typeof(UnixDateToDateTimeConverter))]
+        public DateTime Sunset { get; set; }
 
-		public Sys(JToken sysData)
-		{
-			if (sysData is null)
-				throw new ArgumentNullException(nameof(sysData));
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
+        ///
+        /// <value>
+        /// The type.
+        /// </value>
+        [JsonPropertyName("type")]
+        public int Type { get; set; }
 
-
-			if (sysData.SelectToken("type") != null)
-				Type = sysData.SelectToken("type").Value<int>();
-			if (sysData.SelectToken("id") != null)
-				ID = sysData.SelectToken("id").Value<int>();
-			if (sysData.SelectToken("message") != null)
-				Message =sysData.SelectToken("message").Value<double>();
-			Country = sysData.SelectToken("country").ToString();
-			Sunrise = ConvertUnixToDateTime(sysData.SelectToken("sunrise").Value<double>());
-			Sunset = ConvertUnixToDateTime(sysData.SelectToken("sunset").Value<double>());
-		}
-
-		private static DateTime ConvertUnixToDateTime(double unixTime)
-		{
-			DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-			return dt.AddSeconds(unixTime).ToLocalTime();
-		}
-	}
+        #endregion Properties
+    }
 }

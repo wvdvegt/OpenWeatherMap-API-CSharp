@@ -1,22 +1,58 @@
-using Newtonsoft.Json.Linq;
-using System;
-using System.Globalization;
-
 namespace OpenWeatherAPI
 {
-	public class Coordinates
-	{
-		public double Longitude { get; }
+    using System.Text.Json.Serialization;
 
-		public double Latitude { get; }
+    /// <summary>
+    /// A coordinate.
+    /// </summary>
+    public class Coord
+    {
+        #region Properties
 
-		public Coordinates(JToken coordinateData)
-		{
-			if (coordinateData is null)
-				throw new System.ArgumentNullException(nameof(coordinateData));
+        /// <summary>
+        /// Gets or sets the latitude.
+        /// </summary>
+        ///
+        /// <value>
+        /// The latitude.
+        /// </value>
+        [JsonPropertyName("lat")]
+        public double Lat { get; set; }
 
-			Longitude = coordinateData.SelectToken("lon").Value<Double>();
-			Latitude = coordinateData.SelectToken("lat").Value<Double>();
-		}
-	}
+        /// <summary>
+        /// Alias to get the latitude.
+        /// </summary>
+        ///
+        /// <value>
+        /// The latitude.
+        /// </value>
+        public double Latitude
+        {
+            get { return Lat; }
+        }
+
+        /// <summary>
+        /// Gets or sets the longitude.
+        /// </summary>
+        ///
+        /// <value>
+        /// The longitude.
+        /// </value>
+        [JsonPropertyName("lon")]
+        public double Lon { get; set; }
+
+        /// <summary>
+        /// Alias to get the longitude.
+        /// </summary>
+        ///
+        /// <value>
+        /// The longitude.
+        /// </value>
+        public double Longitude
+        {
+            get { return Lon; }
+        }
+
+        #endregion Properties
+    }
 }

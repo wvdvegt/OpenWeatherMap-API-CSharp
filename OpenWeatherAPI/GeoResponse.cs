@@ -1,21 +1,111 @@
-using System;
-using System.Globalization;
-using Newtonsoft.Json.Linq;
-
 namespace OpenWeatherAPI
 {
-	public class GeoResponse
-	{
-		public bool ValidRequest { get; }
-		public double Lat { get; }
-		public double Lon { get; }
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.Json;
+    using System.Text.Json.Serialization;
 
-		public GeoResponse(string jsonResponse)
-		{
-			var jsonData = JArray.Parse(jsonResponse);
-			Lat = jsonData[0].SelectToken("lat").Value<Double>();
-			Lon = jsonData[0].SelectToken("lon").Value<Double>();
-			ValidRequest = true;
-		}
-	}
+    /// <summary>
+    /// A geo response.
+    /// </summary>
+    public class GeoResponse
+    {
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the country.
+        /// </summary>
+        ///
+        /// <value>
+        /// The country.
+        /// </value>
+        [JsonPropertyName("country")]
+        public string Country { get; set; }
+
+        /// <summary>
+        /// Gets or sets the latitude.
+        /// </summary>
+        ///
+        /// <value>
+        /// The latitude.
+        /// </value>
+        [JsonPropertyName("lat")]
+        public double Lat { get; set; }
+
+        /// <summary>
+        /// Gets or sets the longitude.
+        /// </summary>
+        ///
+        /// <value>
+        /// The longitude.
+        /// </value>
+        [JsonPropertyName("lon")]
+        public double Lon { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        ///
+        /// <value>
+        /// The name.
+        /// </value>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the state.
+        /// </summary>
+        ///
+        /// <value>
+        /// The state.
+        /// </value>
+        [JsonPropertyName("state")]
+        public string State { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the valid request.
+        /// </summary>
+        ///
+        /// <value>
+        /// True if valid request, false if not.
+        /// </value>
+        public bool ValidRequest
+        {
+            get { return true; }
+        }
+
+        #endregion Properties
+
+        #region Methods
+
+        /// <summary>
+        /// Gets full geo data.
+        /// </summary>
+        ///
+        /// <param name="jsonResponse"> The JSON response. </param>
+        ///
+        /// <returns>
+        /// The full geo data.
+        /// </returns>
+        public static GeoResponse GetFullGeoData(string jsonResponse)
+        {
+            return JsonSerializer.Deserialize<List<GeoResponse>>(jsonResponse).First();
+        }
+
+        /// <summary>
+        /// Gets full geo data list.
+        /// </summary>
+        ///
+        /// <param name="jsonResponse"> The JSON response. </param>
+        ///
+        /// <returns>
+        /// The full geo data list.
+        /// </returns>
+        public static List<GeoResponse> GetFullGeoDataList(string jsonResponse)
+        {
+            return JsonSerializer.Deserialize<List<GeoResponse>>(jsonResponse).ToList();
+        }
+
+        #endregion Methods
+    }
 }

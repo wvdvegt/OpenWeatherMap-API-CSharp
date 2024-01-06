@@ -1,20 +1,25 @@
-using Newtonsoft.Json.Linq;
-using System;
-using System.Globalization;
-
 namespace OpenWeatherAPI
 {
-	public class Clouds
-	{
-		public Clouds(JToken cloudsData)
-		{
-			if (cloudsData is null)
-				throw new System.ArgumentNullException(nameof(cloudsData));
+    using System.Text.Json.Serialization;
 
+    /// <summary>
+    /// A clouds.
+    /// </summary>
+    public class Clouds
+    {
+        #region Properties
 
-			All = cloudsData.SelectToken("all").Value<Double>();
-		}
+        /// <summary>
+        /// Gets or sets all.
+        /// </summary>
+        ///
+        /// <value>
+        /// all.
+        /// </value>
+        [JsonPropertyName("all")]
+        [Units("Cloudiness", "%")]
+        public int All { get; set; }
 
-		public double All { get; }
-	}
+        #endregion Properties
+    }
 }

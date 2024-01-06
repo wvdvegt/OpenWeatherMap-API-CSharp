@@ -1,28 +1,70 @@
-using Newtonsoft.Json.Linq;
-using System.Globalization;
-
 namespace OpenWeatherAPI
 {
-	public class Weather
-	{
-		public int ID { get; }
+    using System;
+    using System.Text.Json.Serialization;
 
-		public string Main { get; }
+    /// <summary>
+    /// A weather.
+    /// </summary>
+    public class Weather
+    {
+        #region Properties
 
-		public string Description { get; }
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        ///
+        /// <value>
+        /// The description.
+        /// </value>
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
 
-		public string Icon { get; }
+        /// <summary>
+        /// Gets or sets the icon.
+        /// </summary>
+        ///
+        /// <value>
+        /// The icon.
+        /// </value>
+        [JsonPropertyName("icon")]
+        public string Icon { get; set; }
 
-		public Weather(JToken weatherData)
-		{
-			if (weatherData is null)
-				throw new System.ArgumentNullException(nameof(weatherData));
+        /// <summary>
+        /// Gets URI of the icon.
+        /// </summary>
+        ///
+        /// <value>
+        /// The icon URI.
+        /// </value>
+        public Uri IconUri
+        {
+            get
+            {
+                return new Uri($"http://openweathermap.org/img/w/{Icon}.png");
+            }
+        }
 
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        ///
+        /// <value>
+        /// The identifier.
+        /// </value>
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
 
-			ID = weatherData.SelectToken("id").Value<int>();
-			Main = weatherData.SelectToken("main").ToString();
-			Description = weatherData.SelectToken("description").ToString();
-			Icon = weatherData.SelectToken("icon").ToString();
-		}
-	}
+        /// <summary>
+        /// Gets or sets the main.
+        /// </summary>
+        ///
+        /// <value>
+        /// The main.
+        /// </value>
+        [JsonPropertyName("main")]
+        public string Main { get; set; }
+
+        #endregion Properties
+    }
 }
