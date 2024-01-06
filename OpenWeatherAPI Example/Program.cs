@@ -46,7 +46,7 @@ namespace OpenWeatherAPI_Example
 
 			if (query != null)
 			{
-				Console.WriteLine($"The temperature in {query.Name} ({query.Sys.Country}) is currently {query.Main.Temp.AsCelsius(2)} °C. There is {query.Wind.SpeedMetersPerSecond} m/s wind in the {query.Wind.DirectionText} direction.");
+				Console.WriteLine($"The temperature in {query.Name} ({query.Sys.Country}) is currently {query.Main.Temp.AsCelsius(2)} °C. There is {query.Wind.SpeedMetersPerSecond} m/s wind in the {query.Wind.Direction.AsShortDirection("-")} direction.");
 			}
 			Console.WriteLine($"http://openweathermap.org/img/w/{query.Weather.First().Icon}.png");
 
