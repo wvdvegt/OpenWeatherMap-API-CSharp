@@ -2,6 +2,7 @@
 namespace OpenWeatherAPI
 {
 	using System.Text.Json.Serialization;
+	using Kelvin = System.Double;
 
 	/// <summary>
 	/// A main.
@@ -19,7 +20,7 @@ namespace OpenWeatherAPI
 		/// </value>
 		[JsonPropertyName("feels_like")]
 		[Units("Kelvin", "K")]
-		public double FeelsLike { get; set; }
+		public Kelvin FeelsLike { get; set; }
 
 		/// <summary>
 		/// Gets or sets the ground level atm.
@@ -84,7 +85,7 @@ namespace OpenWeatherAPI
 		/// The temperature.
 		/// </value>
 		[Units("Kelvin", "K")]
-		public double Temperature
+		public Kelvin Temperature
 		{
 			get { return Temp; }
 		}
@@ -98,7 +99,7 @@ namespace OpenWeatherAPI
 		/// </value>
 		[JsonPropertyName("temp_max")]
 		[Units("Kelvin", "K")]
-		public double TempMax { get; set; }
+		public Kelvin TempMax { get; set; }
 
 		/// <summary>
 		/// Gets or sets the temporary minimum in Kelvin.
@@ -109,7 +110,7 @@ namespace OpenWeatherAPI
 		/// </value>
 		[JsonPropertyName("temp_min")]
 		[Units("Kelvin", "K")]
-		public double TempMin { get; set; }
+		public Kelvin TempMin { get; set; }
 
 		#endregion Properties
 	}
