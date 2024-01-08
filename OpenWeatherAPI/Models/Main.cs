@@ -78,6 +78,17 @@ namespace OpenWeatherAPI
 		public double Temp { get; set; }
 
 		/// <summary>
+		/// Internal Parameter.
+		/// </summary>
+		///
+		/// <value>
+		/// Internal Parameter.
+		/// </value>
+
+		[JsonPropertyName("temp_kf")]
+		public double Temp_kf { get; set; }
+
+		/// <summary>
 		/// Alias for the current temperature in Kelvin.
 		/// </summary>
 		///

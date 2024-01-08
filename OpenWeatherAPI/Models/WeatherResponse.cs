@@ -182,7 +182,7 @@ namespace OpenWeatherAPI
         /// <returns>
         /// The full weather data.
         /// </returns>
-        public static WeatherResponse GetFullWeatherData(string jsonResponse)
+        public static WeatherResponse GetWeatherData(string jsonResponse)
         {
             return JsonSerializer.Deserialize<WeatherResponse>(jsonResponse);
         }

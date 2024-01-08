@@ -29,7 +29,7 @@ namespace OpenWeatherAPI
         /// </value>
         [JsonPropertyName("3h")]
         [Units("Snow Volume", "mm")]
-        public double H2 { get; set; }
+        public double H3 { get; set; }
 
         #endregion Properties
     }

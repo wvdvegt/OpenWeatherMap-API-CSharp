@@ -93,13 +93,13 @@ namespace OpenWeatherAPI
         }
 
         /// <summary>
-        /// Gets full geo data list.
+        /// Gets full geo data Items.
         /// </summary>
         ///
         /// <param name="jsonResponse"> The JSON response. </param>
         ///
         /// <returns>
-        /// The full geo data list.
+        /// The full geo data Items.
         /// </returns>
         public static List<GeoResponse> GetFullGeoDataList(string jsonResponse)
         {

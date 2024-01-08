@@ -66,7 +66,39 @@ namespace OpenWeatherAPI
         }
 
         /// <summary>
-        /// Geolocates.
+        /// (This method is obsolete) forecasts.
+        /// </summary>
+        ///
+        /// <param name="queryString"> The query string. </param>
+        ///
+        /// <returns>
+        /// A ForecastResponse.
+        /// </returns>
+        [Obsolete("Use Async version wherever possible.")]
+        public ForecastResponse Forecast(string queryString)
+        {
+            return Task.Run(async () => await ForecastAsync(queryString).ConfigureAwait(false)).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Queries an asynchronous.
+        /// </summary>
+        ///
+        /// <param name="queryString"> . </param>
+        ///
+        /// <returns>
+        /// Returns null if the query is invalid.
+        /// </returns>
+        public async Task<ForecastResponse> ForecastAsync(string queryString)
+        {
+            var jsonResponse = await _httpClient.GetStringAsync(GenerateForecastRequestUrl(queryString).Result).ConfigureAwait(false);
+            var query = ForecastResponse.GetForecastData(jsonResponse);
+
+            return query.ValidRequest ? query : null;
+        }
+
+        /// <summary>
+        /// (This method is obsolete) geolocates.
         /// </summary>
         ///
         /// <param name="queryString"> The query string. </param>
@@ -74,7 +106,22 @@ namespace OpenWeatherAPI
         /// <returns>
         /// A GeoResponse.
         /// </returns>
-        public async Task<GeoResponse> Geolocate(string queryString)
+        [Obsolete("Use Async version wherever possible.")]
+        public GeoResponse Geolocate(string queryString)
+        {
+            return Task.Run(async () => await GeolocateAsync(queryString).ConfigureAwait(false)).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Geolocate asynchronous.
+        /// </summary>
+        ///
+        /// <param name="queryString"> The query string. </param>
+        ///
+        /// <returns>
+        /// The geolocate.
+        /// </returns>
+        public async Task<GeoResponse> GeolocateAsync(string queryString)
         {
             string scheme = "http";
             if (_useHttps)
@@ -89,18 +136,18 @@ namespace OpenWeatherAPI
         }
 
         /// <summary>
-        /// Non-async version. Use for legacy code, use Async version wherever possible.
+        /// (This method is obsolete) weathers.
         /// </summary>
         ///
-        /// <param name="queryString"> . </param>
+        /// <param name="queryString"> The query string. </param>
         ///
         /// <returns>
-        /// Returns null if the query is invalid.
+        /// A WeatherResponse.
         /// </returns>
         [Obsolete("Use Async version wherever possible.")]
-        public WeatherResponse Query(string queryString)
+        public WeatherResponse Weather(string queryString)
         {
-            return Task.Run(async () => await QueryAsync(queryString).ConfigureAwait(false)).ConfigureAwait(false).GetAwaiter().GetResult();
+            return Task.Run(async () => await WeatherAsync(queryString).ConfigureAwait(false)).ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -112,10 +159,10 @@ namespace OpenWeatherAPI
         /// <returns>
         /// Returns null if the query is invalid.
         /// </returns>
-        public async Task<WeatherResponse> QueryAsync(string queryString)
+        public async Task<WeatherResponse> WeatherAsync(string queryString)
         {
-            var jsonResponse = await _httpClient.GetStringAsync(GenerateRequestUrl(queryString).Result).ConfigureAwait(false);
-            var query = WeatherResponse.GetFullWeatherData(jsonResponse);
+            var jsonResponse = await _httpClient.GetStringAsync(GenerateWeatherRequestUrl(queryString).Result).ConfigureAwait(false);
+            var query = WeatherResponse.GetWeatherData(jsonResponse);
 
             return query.ValidRequest ? query : null;
         }
@@ -150,6 +197,27 @@ namespace OpenWeatherAPI
         /// <summary>
         /// Generates a request URL.
         /// 
+        /// See https://openweathermap.org/forecast5.
+        /// </summary>
+        ///
+        /// <param name="queryString"> The query string. </param>
+        ///
+        /// <returns>
+        /// The request URL.
+        /// </returns>
+        private async Task<Uri> GenerateForecastRequestUrl(string queryString)
+        {
+            var geo = await GeolocateAsync(queryString).ConfigureAwait(false);
+
+            string scheme = "http";
+            if (_useHttps)
+                scheme = "https";
+            return new Uri($"{scheme}://api.openweathermap.org/data/2.5/forecast?appid={_apiKey}&lat={geo.Lat}&lon={geo.Lon}");
+        }
+
+        /// <summary>
+        /// Generates a request URL.
+        /// 
         /// See https://openweathermap.org/current.
         /// </summary>
         ///
@@ -158,9 +226,9 @@ namespace OpenWeatherAPI
         /// <returns>
         /// The request URL.
         /// </returns>
-        private async Task<Uri> GenerateRequestUrl(string queryString)
+        private async Task<Uri> GenerateWeatherRequestUrl(string queryString)
         {
-            var geo = await Geolocate(queryString).ConfigureAwait(false);
+            var geo = await GeolocateAsync(queryString).ConfigureAwait(false);
 
             string scheme = "http";
             if (_useHttps)
