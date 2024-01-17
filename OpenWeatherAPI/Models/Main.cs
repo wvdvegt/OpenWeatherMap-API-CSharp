@@ -1,12 +1,14 @@
 
 namespace OpenWeatherAPI
 {
+	using System.ComponentModel;
 	using System.Text.Json.Serialization;
 	using Kelvin = System.Double;
 
 	/// <summary>
 	/// A main.
 	/// </summary>
+	[TypeConverter(typeof(ExpandableObjectConverter))]
 	public partial class Main
 	{
 		#region Properties

@@ -1,9 +1,11 @@
 namespace OpenWeatherAPI
 {
     using System;
-    using System.Text.Json.Serialization;
+	using System.ComponentModel;
+	using System.Text.Json.Serialization;
 
-    public class ForecastItem
+	[TypeConverter(typeof(ExpandableObjectConverter))]
+	public class ForecastItem
     {
         #region Properties
 

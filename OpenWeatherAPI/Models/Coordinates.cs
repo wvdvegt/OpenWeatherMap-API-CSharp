@@ -1,11 +1,13 @@
 namespace OpenWeatherAPI
 {
-    using System.Text.Json.Serialization;
+	using System.ComponentModel;
+	using System.Text.Json.Serialization;
 
-    /// <summary>
-    /// A coordinate.
-    /// </summary>
-    public class Coord
+	/// <summary>
+	/// A coordinate.
+	/// </summary>
+	[TypeConverter(typeof(ExpandableObjectConverter))]
+	public class Coord
     {
         #region Properties
 

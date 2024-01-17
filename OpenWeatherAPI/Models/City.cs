@@ -1,8 +1,10 @@
 namespace OpenWeatherAPI
 {
 	using System;
+	using System.ComponentModel;
 	using System.Text.Json.Serialization;
 
+	[TypeConverter(typeof(ExpandableObjectConverter))]
 	public class City
 	{
 		/// <summary>

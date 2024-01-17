@@ -1,10 +1,12 @@
 namespace OpenWeatherAPI
 {
+	using System.ComponentModel;
 	using System.Text.Json.Serialization;
 
 	/// <summary>
 	/// Sys.
 	/// </summary>
+	[TypeConverter(typeof(ExpandableObjectConverter))]
 	public class SysPod
 	{
 		#region Properties

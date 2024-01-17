@@ -1,12 +1,14 @@
 namespace OpenWeatherAPI
 {
-    using System.Text.Json;
+	using System.ComponentModel;
+	using System.Text.Json;
     using System.Text.Json.Serialization;
 
-    /// <summary>
-    /// A forecast response.
-    /// </summary>
-    public class ForecastResponse
+	/// <summary>
+	/// A forecast response.
+	/// </summary>
+	[TypeConverter(typeof(ExpandableObjectConverter))]
+	public class ForecastResponse
     {
         #region Properties
 

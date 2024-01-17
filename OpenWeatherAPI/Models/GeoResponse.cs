@@ -1,14 +1,16 @@
 namespace OpenWeatherAPI
 {
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text.Json;
+	using System.ComponentModel;
+	using System.Linq;
+	using System.Text.Json;
     using System.Text.Json.Serialization;
 
-    /// <summary>
-    /// A geo response.
-    /// </summary>
-    public class GeoResponse
+	/// <summary>
+	/// A geo response.
+	/// </summary>
+	[TypeConverter(typeof(ExpandableObjectConverter))]
+	public class GeoResponse
     {
         #region Properties
 

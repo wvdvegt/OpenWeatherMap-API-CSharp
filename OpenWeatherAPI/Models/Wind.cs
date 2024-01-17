@@ -1,12 +1,14 @@
 namespace OpenWeatherAPI
 {
 	using System;
+	using System.ComponentModel;
 	using System.Linq;
 	using System.Text.Json.Serialization;
 
 	/// <summary>
 	/// A wind.
 	/// </summary>
+	[TypeConverter(typeof(ExpandableObjectConverter))]
 	public class Wind
 	{
 		#region Enumerations
@@ -99,6 +101,7 @@ namespace OpenWeatherAPI
 		/// </value>
 		[JsonPropertyName("deg")]
 		[Units("degrees", "deg")]
+		[Description("Wind direction in degree.")]
 		public double Deg { get; set; }
 
 		/// <summary>
@@ -108,6 +111,7 @@ namespace OpenWeatherAPI
 		/// <value>
 		/// The degree.
 		/// </value>
+		[Description("Wind direction in degree.")]
 		public double Degree
 		{
 			get { return Deg; }
@@ -120,6 +124,7 @@ namespace OpenWeatherAPI
 		/// <value>
 		/// The direction.
 		/// </value>
+		[Description("Wind direction.")]
 		public DirectionEnum Direction
 		{
 			get { return assignDirection(Degree); }
@@ -134,6 +139,7 @@ namespace OpenWeatherAPI
 		/// </value>
 		[JsonPropertyName("gust")]
 		[Units("meter/sec", "m/s")]
+		[Description("Gust in meter/sec.")]
 		public double Gust { get; }
 
 		/// <summary>
@@ -145,6 +151,8 @@ namespace OpenWeatherAPI
 		/// </value>
 		[JsonPropertyName("speed")]
 		[Units("meter/sec", "m/s")]
+		[Description("Windspeed in meter/sec.")]
+
 		public double Speed { get; set; }
 
 		/// <summary>
@@ -155,6 +163,7 @@ namespace OpenWeatherAPI
 		/// The speed feet per second.
 		/// </value>
 		[Units("feet/sec", "m/s")]
+		[Description("Windspeed in feet/sec.")]
 		public double SpeedFeetPerSecond
 		{
 			get { return Speed * 3.28084; }
@@ -168,6 +177,7 @@ namespace OpenWeatherAPI
 		/// The speed meters per second.
 		/// </value>
 		[Units("meter/sec", "m/s")]
+		[Description("Windspeed in meter/sec.")]
 		public double SpeedMetersPerSecond
 		{
 			get { return Speed; }
